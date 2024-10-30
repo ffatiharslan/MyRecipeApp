@@ -51,4 +51,23 @@ class APIService {
             }
         }
     }
+    
+    
+    func fetchMealDetail(by mealID: String, completion: @escaping (Result<MealDetail, Error>) -> Void) {
+        let urlString = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(mealID)"
+        
+        AF.request(urlString, method: .get).response { response in
+            if let data = response.data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(MealDetailResponse.self, from: data)
+                    if let meal = decodedResponse.meals?.first {
+                        completion(.success(meal))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }
+

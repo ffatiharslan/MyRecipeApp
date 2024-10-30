@@ -110,6 +110,14 @@ class HomepageVC: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMealDetail",
+           let destinationVC = segue.destination as? MealDetailVC,
+           let selectedMealID = sender as? String {
+            destinationVC.selectedMealID = selectedMealID
+        }
+    }
 }
 
 
@@ -152,6 +160,11 @@ extension HomepageVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             let selectedCategory = categoryList[indexPath.row].strCategory ?? ""
             fetchMeals(forCategory: selectedCategory)
+        }
+        
+        else if collectionView == mealsByCategoryCollectionView {
+            let selectedMeal = filteredMealList[indexPath.row]
+            performSegue(withIdentifier: "toMealDetail", sender: selectedMeal.idMeal)
         }
     }
 }
