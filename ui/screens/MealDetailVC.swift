@@ -14,6 +14,8 @@ class MealDetailVC: UIViewController {
     
     var selectedMealID: String?
     
+    let firestoreService = FirestoreService()
+    
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealNameLabel: RPLabel!
     @IBOutlet weak var segmentedBackView: UIView!
@@ -21,7 +23,7 @@ class MealDetailVC: UIViewController {
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var ingredientsView: UIView!
     @IBOutlet weak var ingrediantsCollectionView: UICollectionView!
-    
+    @IBOutlet weak var favoriteButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,40 @@ class MealDetailVC: UIViewController {
             self.ingrediantsCollectionView.reloadData()
         }
     }
+    
+    func setupFavoriteButton() {
+        firestoreService.isFavorite(mealID: selectedMealID!) { isFavorite in
+            let imageName = isFavorite ? "heart.fill" : "heart"
+            self.favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+        }
+    }
+    
+    @IBAction func favoriteButtonTapped(_ sender: Any) {
+        guard let meal = viewModel.mealDetail else { return }
+        
+        firestoreService.isFavorite(mealID: meal.idMeal ?? "") { isFavorite in
+            if isFavorite {
+                self.firestoreService.removeFavorite(mealID: meal.idMeal ?? "") { result in
+                    switch result {
+                    case .success:
+                        self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    case .failure(let error):
+                        print("Favori silme hatası: \(error)")
+                    }
+                }
+            } else {
+                self.firestoreService.addFavorite(meal: meal) { result in
+                    switch result {
+                    case .success:
+                        self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    case .failure(let error):
+                        print("Favori ekleme hatası: \(error)")
+                    }
+                }
+            }
+        }
+    }
+    
     
     @IBAction func segmentedControl(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -101,8 +137,8 @@ extension MealDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.ingrediantMeasureLabel.text = ingredient.1
         
         if let imageURL = URL(string: "https://www.themealdb.com/images/ingredients/\(ingredient.0)-Small.png") {
-                cell.ingrediantImageView.kf.setImage(with: imageURL)
-            }
+            cell.ingrediantImageView.kf.setImage(with: imageURL)
+        }
         
         return cell
     }
