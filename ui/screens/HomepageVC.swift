@@ -59,7 +59,23 @@ class HomepageVC: UIViewController {
                 self.mealsByCategoryCollectionView.reloadData()
             }
         })
+        
+        setupUserInfo()
     }
+    
+    
+    func setupUserInfo() {
+        if let firstName = UserDefaults.standard.string(forKey: "firstName") {
+            nameLabel.text = "Hey, \(firstName)"
+        }
+        
+        if let profileImageURLString = UserDefaults.standard.string(forKey: "profileImageURL"),
+           let profileImageURL = URL(string: profileImageURLString) {
+            profileImageView.kf.setImage(with: profileImageURL)
+        }
+    }
+    
+    
     
     private func setupCollectionViewLayout() {
         let layout = UICollectionViewFlowLayout()
