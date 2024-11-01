@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = mainTabBarController
         } else {
             // Giriş yapılmamışsa giriş ekranına yönlendir
-            let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController") as! UINavigationController
+            let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController") 
             window.rootViewController = loginNavController
         }
         

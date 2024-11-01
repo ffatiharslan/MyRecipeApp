@@ -15,6 +15,7 @@ class MealDetailVC: UIViewController {
     var selectedMealID: String?
     
     let firestoreService = FirestoreService()
+
     
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealNameLabel: RPLabel!
@@ -46,6 +47,8 @@ class MealDetailVC: UIViewController {
             self.ingrediantsCollectionView.reloadData()
         }
     }
+    
+
     
     func setupFavoriteButton() {
         firestoreService.isFavorite(mealID: selectedMealID!) { isFavorite in
@@ -141,5 +144,35 @@ extension MealDetailVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         
         return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let ingredient = viewModel.getIngredients()[indexPath.row]
+        print("ingredient: \(ingredient.0)")
+        
+        let imageString = "https://www.themealdb.com/images/ingredients/\(ingredient.0)-Small.png"
+            
+        
+        
+        let alert = UIAlertController(title: nil, message: "\(ingredient.0) alışveriş listesine eklensin mi?", preferredStyle: .actionSheet)
+                
+                let addAction = UIAlertAction(title: "Alışveriş Listesine Ekle", style: .default) { _ in
+                    self.firestoreService.addIngredientToShoppingList(ingredientName: ingredient.0, ingredientImageURL: imageString) { result in
+                        switch result {
+                        case .success:
+                            print("\(ingredient.0) alışveriş listesine eklendi.")
+                        case .failure(let error):
+                            print("----sjflslkjsdl*******fjls------**\(error.localizedDescription)")
+                        }
+                    }
+                }
+                
+                let cancelAction = UIAlertAction(title: "İptal", style: .cancel, handler: nil)
+                
+                alert.addAction(addAction)
+                alert.addAction(cancelAction)
+                
+                present(alert, animated: true, completion: nil)
     }
 }
