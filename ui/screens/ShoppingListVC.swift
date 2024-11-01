@@ -34,19 +34,6 @@ class ShoppingListVC: UIViewController {
         viewModel.fetchShoppingList()
     }
     
-    /*func fetchShoppingList() {
-     firestoreService.fetchShoppingList { result in
-     switch result {
-     case .success(let ingredients):
-     self.shoppingList = ingredients.map { ($0["ingredientName"] ?? "", $0["ingredientImageURL"] ?? "") }
-     DispatchQueue.main.async {
-     self.shoppingListTableView.reloadData()
-     }
-     case .failure(let error):
-     print("Alışveriş listesi alınamadı: \(error.localizedDescription)")
-     }
-     }
-     }*/
 }
 
 extension ShoppingListVC: UITableViewDelegate, UITableViewDataSource {
