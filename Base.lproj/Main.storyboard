@@ -246,7 +246,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IuF-zi-Aki">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3JO-Sz-p79">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
@@ -255,7 +255,7 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yl-0M-f0a">
-                                                <rect key="frame" x="0.0" y="210" width="393" height="790"/>
+                                                <rect key="frame" x="0.0" y="210" width="393" height="990"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIR-lG-Qgf" customClass="RPLabel" customModule="MyRecipeApp" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="20" width="353" height="20.333333333333329"/>
@@ -287,7 +287,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WH9-Z5-0XL">
-                                                        <rect key="frame" x="0.0" y="150.33333333333331" width="393" height="639.66666666666674"/>
+                                                        <rect key="frame" x="0.0" y="150.33333333333331" width="393" height="839.66666666666674"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2Q-21-MS7" customClass="RPLabel" customModule="MyRecipeApp" customModuleProvider="target">
                                                                 <rect key="frame" x="10" y="9.9999999999999982" width="373" height="20.333333333333329"/>
@@ -304,7 +304,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K4J-z4-r7J">
-                                                        <rect key="frame" x="0.0" y="150.33333333333331" width="393" height="639.66666666666674"/>
+                                                        <rect key="frame" x="0.0" y="150.33333333333331" width="393" height="839.66666666666674"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8MF-Ou-y9g">
                                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="669.66666666666663"/>
@@ -411,7 +411,7 @@
                                             <constraint firstAttribute="trailing" secondItem="w3V-OC-65Q" secondAttribute="trailing" constant="15" id="Yn8-fy-osq"/>
                                             <constraint firstItem="w3V-OC-65Q" firstAttribute="top" secondItem="IuF-zi-Aki" secondAttribute="top" constant="15" id="eAZ-dC-V34"/>
                                             <constraint firstAttribute="trailing" secondItem="3JO-Sz-p79" secondAttribute="trailing" id="lg8-Vt-pEf"/>
-                                            <constraint firstAttribute="height" constant="1000" id="qW4-r4-c7Y"/>
+                                            <constraint firstAttribute="height" constant="1200" id="qW4-r4-c7Y"/>
                                             <constraint firstItem="2yl-0M-f0a" firstAttribute="leading" secondItem="IuF-zi-Aki" secondAttribute="leading" id="uk6-7P-mhK"/>
                                             <constraint firstItem="3JO-Sz-p79" firstAttribute="top" secondItem="IuF-zi-Aki" secondAttribute="top" id="vsZ-Op-Fm2"/>
                                             <constraint firstItem="2yl-0M-f0a" firstAttribute="top" secondItem="3JO-Sz-p79" secondAttribute="bottom" constant="10" id="wXe-l9-QPf"/>
@@ -438,6 +438,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="sel-XM-O5b"/>
                     <connections>
+                        <outlet property="contentView" destination="IuF-zi-Aki" id="WVJ-cp-iIu"/>
                         <outlet property="favoriteButton" destination="w3V-OC-65Q" id="ZmO-0S-CQe"/>
                         <outlet property="ingrediantsCollectionView" destination="8MF-Ou-y9g" id="v4I-RO-QUu"/>
                         <outlet property="ingredientsView" destination="K4J-z4-r7J" id="23v-7L-JgE"/>
@@ -445,6 +446,7 @@
                         <outlet property="instructionsView" destination="WH9-Z5-0XL" id="QRc-Dk-VG4"/>
                         <outlet property="mealImageView" destination="3JO-Sz-p79" id="Dl9-Fs-AWJ"/>
                         <outlet property="mealNameLabel" destination="TIR-lG-Qgf" id="3S8-ru-RmV"/>
+                        <outlet property="scrollView" destination="X7c-Of-gNt" id="LPd-aW-gdG"/>
                         <outlet property="segmentedBackView" destination="Zry-2t-SoU" id="rIe-1O-7aj"/>
                     </connections>
                 </viewController>

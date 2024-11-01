@@ -25,6 +25,8 @@ class MealDetailVC: UIViewController {
     @IBOutlet weak var ingredientsView: UIView!
     @IBOutlet weak var ingrediantsCollectionView: UICollectionView!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,6 @@ class MealDetailVC: UIViewController {
             self.ingrediantsCollectionView.reloadData()
         }
     }
-    
     
     
     func setupFavoriteButton() {
