@@ -13,7 +13,6 @@ class FirestoreService {
     
     private let db = Firestore.firestore()
     
-    // Favorilere yemek ekleme
     func addFavorite(meal: MealDetail, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı giriş yapmamış."])))
@@ -35,7 +34,7 @@ class FirestoreService {
         }
     }
     
-    // Favorilerden yemek kaldırma
+   
     func removeFavorite(mealID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı giriş yapmamış."])))
@@ -51,7 +50,7 @@ class FirestoreService {
         }
     }
     
-    // Favorileri çekme
+    
     func fetchFavorites(completion: @escaping (Result<[FilteredMeals], Error>) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı giriş yapmamış."])))
@@ -73,7 +72,6 @@ class FirestoreService {
         }
     }
     
-    // Bir yemeğin favori olup olmadığını kontrol etme
     func isFavorite(mealID: String, completion: @escaping (Bool) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(false)
@@ -102,10 +100,8 @@ class FirestoreService {
             "ingredientImageURL": ingredientImageURL
         ]
         
-        // Belgeyi başlatmak için getDocument kullanarak kontrol ediyoruz
         shoppingListRef.getDocument { document, error in
             if let document = document, document.exists {
-                // Belge mevcutsa arrayUnion kullanarak eklemeye çalışıyoruz
                 shoppingListRef.updateData([
                     "ingredients": FieldValue.arrayUnion([ingredientData])
                 ]) { error in
@@ -116,7 +112,6 @@ class FirestoreService {
                     }
                 }
             } else {
-                // Belge mevcut değilse ingredients dizisini başlatıyoruz
                 shoppingListRef.setData([
                     "ingredients": [ingredientData]
                 ]) { error in
@@ -129,30 +124,29 @@ class FirestoreService {
             }
         }
     }
-
+    
+    
+    func fetchShoppingList(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı kimliği bulunamadı."])))
+            return
+        }
         
-        func fetchShoppingList(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
-            guard let userID = Auth.auth().currentUser?.uid else {
-                completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı kimliği bulunamadı."])))
-                return
-            }
-            
-            let shoppingListRef = db.collection("shoppingLists").document(userID)
-            shoppingListRef.getDocument { document, error in
-                if let document = document, document.exists, let data = document.data() {
-                    if let ingredients = data["ingredients"] as? [[String: String]] {
-                        completion(.success(ingredients))
-                    } else {
-                        completion(.success([]))
-                    }
+        let shoppingListRef = db.collection("shoppingLists").document(userID)
+        shoppingListRef.getDocument { document, error in
+            if let document = document, document.exists, let data = document.data() {
+                if let ingredients = data["ingredients"] as? [[String: String]] {
+                    completion(.success(ingredients))
                 } else {
-                    completion(.failure(error ?? NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Veri alınamadı."])))
+                    completion(.success([]))
                 }
+            } else {
+                completion(.failure(error ?? NSError(domain: "Firestore", code: -1, userInfo: [NSLocalizedDescriptionKey: "Veri alınamadı."])))
             }
         }
+    }
     
-    // Alışveriş Listesinden Malzeme Silme
-    func removeIngredientFromShoppingList(ingredient: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func removeIngredientFromShoppingList(ingredient: [String: String], completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             completion(.failure(NSError(domain: "Auth", code: -1, userInfo: [NSLocalizedDescriptionKey: "Kullanıcı kimliği bulunamadı."])))
             return

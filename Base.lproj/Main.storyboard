@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="y6B-mU-ZhI">
-                                <rect key="frame" x="20" y="133" width="353" height="50"/>
+                                <rect key="frame" x="20" y="103" width="353" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cIq-pL-AOA">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
@@ -49,7 +49,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="QkZ-ei-6eL">
-                                <rect key="frame" x="24" y="203" width="345" height="34.333333333333343"/>
+                                <rect key="frame" x="24" y="173" width="345" height="34.333333333333343"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dg9-ca-vNN" customClass="RPLabel" customModule="MyRecipeApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="34.333333333333336"/>
@@ -59,13 +59,14 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh9-mB-gLo">
                                         <rect key="frame" x="271" y="0.0" width="74" height="34.333333333333336"/>
+                                        <color key="tintColor" systemColor="systemOrangeColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="See all"/>
                                     </button>
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DbP-m3-qJa">
-                                <rect key="frame" x="0.0" y="257.33333333333331" width="393" height="85.333333333333314"/>
+                                <rect key="frame" x="0.0" y="227.33333333333334" width="393" height="85.333333333333343"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wWt-o5-vJc">
                                     <size key="itemSize" width="85" height="86"/>
@@ -110,7 +111,7 @@
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ho5-NB-lvH">
-                                <rect key="frame" x="0.0" y="362.66666666666674" width="393" height="406.33333333333326"/>
+                                <rect key="frame" x="0.0" y="332.66666666666674" width="393" height="436.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GV6-xW-fCQ">
                                     <size key="itemSize" width="168" height="248"/>
@@ -212,11 +213,13 @@
                             <constraint firstItem="ho5-NB-lvH" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="d3U-ij-E1O"/>
                             <constraint firstItem="ho5-NB-lvH" firstAttribute="top" secondItem="DbP-m3-qJa" secondAttribute="bottom" constant="20" id="kFJ-Xc-Tss"/>
                             <constraint firstItem="DbP-m3-qJa" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.100156" id="mFH-AG-BNH"/>
-                            <constraint firstItem="y6B-mU-ZhI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="q3v-Mt-TYH"/>
+                            <constraint firstItem="y6B-mU-ZhI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="q3v-Mt-TYH"/>
                             <constraint firstItem="QkZ-ei-6eL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="thm-z9-Pst"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4Hn-xX-yZR"/>
+                    <navigationItem key="navigationItem" id="4Hn-xX-yZR">
+                        <barButtonItem key="backBarButtonItem" title=" " id="dbi-aN-owI"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="categoriesCollectionView" destination="DbP-m3-qJa" id="0fw-sa-Upf"/>
                         <outlet property="categoryLabel" destination="dg9-ca-vNN" id="TQe-Jy-0ft"/>
@@ -266,8 +269,8 @@
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="20u-hE-A8b">
                                                                 <rect key="frame" x="10" y="10" width="333" height="31"/>
                                                                 <segments>
-                                                                    <segment title="First"/>
-                                                                    <segment title="Second"/>
+                                                                    <segment title="Instructios"/>
+                                                                    <segment title="Ingredients"/>
                                                                 </segments>
                                                                 <connections>
                                                                     <action selector="segmentedControl:" destination="5HQ-cr-35k" eventType="valueChanged" id="Rgz-V7-peY"/>
@@ -392,6 +395,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="VHO-1G-ZG2"/>
                                                     <constraint firstAttribute="height" constant="40" id="pYd-or-wtb"/>
                                                 </constraints>
+                                                <color key="tintColor" systemColor="systemOrangeColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
                                                 <connections>
@@ -457,6 +461,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemOrangeColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="ccS-LI-cxO" kind="relationship" relationship="viewControllers" id="Tuq-Wt-GzO"/>
@@ -527,6 +532,7 @@
                     <navigationItem key="navigationItem" title="Favorites" id="PRJ-UK-UW9"/>
                     <connections>
                         <outlet property="favoritesTableView" destination="0c9-pT-MQ7" id="MAx-Tn-4zl"/>
+                        <segue destination="5HQ-cr-35k" kind="show" identifier="toMealDetailFromFavorites" id="uyg-0V-8g0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNb-lZ-LSr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -536,7 +542,7 @@
         <!--Shopping List-->
         <scene sceneID="gyG-C2-YMg">
             <objects>
-                <viewController id="ldV-yY-ruf" customClass="ShoppinListVC" customModule="MyRecipeApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ldV-yY-ruf" customClass="ShoppingListVC" customModule="MyRecipeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lhe-af-mIA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -545,7 +551,7 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingListCell" id="wY2-lk-kSJ" customClass="ShoppinListCell" customModule="MyRecipeApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShoppingListCell" id="wY2-lk-kSJ" customClass="ShoppingListCell" customModule="MyRecipeApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wY2-lk-kSJ" id="Axf-qD-4hc">
@@ -688,6 +694,9 @@
             <point key="canvasLocation" x="1052.6717557251909" y="876.76056338028172"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="xam-gh-9kS"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="bag" catalog="system" width="128" height="128"/>
         <image name="bag.fill" catalog="system" width="128" height="128"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import FirebaseAuth
 
 class HomepageVC: UIViewController {
     
@@ -15,6 +16,8 @@ class HomepageVC: UIViewController {
     
     var viewModel = HomepageViewModel()
     
+    var selectedCategoryIndex: Int = 0
+    
     @IBOutlet weak var nameLabel: RPLabel!
     @IBOutlet weak var readyToCookLabel: RPLabel!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -22,23 +25,14 @@ class HomepageVC: UIViewController {
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var mealsByCategoryCollectionView: UICollectionView!
     
-    var selectedCategoryIndex: Int = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        setupCollectionViewLayout()
-        setupMealCollectionViewLayout()
-        
-        categoriesCollectionView.showsVerticalScrollIndicator = false
-        categoriesCollectionView.showsHorizontalScrollIndicator = false
-        
-        categoriesCollectionView.delegate = self
-        categoriesCollectionView.dataSource = self
-        
-        mealsByCategoryCollectionView.delegate = self
-        mealsByCategoryCollectionView.dataSource = self
+        setupCategoriesCollectionView()
+        setupMealCollectionView()
+        setupUserInfo()
+        setupProfileImageViewTapGesture()
         
         _ = viewModel.categoryList.subscribe(onNext: { list in
                     self.categoryList = list
@@ -59,8 +53,6 @@ class HomepageVC: UIViewController {
                 self.mealsByCategoryCollectionView.reloadData()
             }
         })
-        
-        setupUserInfo()
     }
     
     
@@ -76,20 +68,68 @@ class HomepageVC: UIViewController {
     }
     
     
+    private func setupProfileImageViewTapGesture() {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+            profileImageView.isUserInteractionEnabled = true
+            profileImageView.addGestureRecognizer(tapGesture)
+        }
+        
+        @objc private func profileImageTapped() {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let signOutAction = UIAlertAction(title: "Log Out", style: .destructive) { _ in
+                self.signOutUser()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addAction(signOutAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        
+        private func signOutUser() {
+            do {
+                try Auth.auth().signOut()
+                navigateToLoginScreen()
+            } catch let signOutError as NSError {
+                print("Çıkış yaparken hata oluştu: \(signOutError.localizedDescription)")
+            }
+        }
+        
+        private func navigateToLoginScreen() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginNavController")
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                window.rootViewController = loginVC
+                UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil, completion: nil)
+            }
+        }
     
-    private func setupCollectionViewLayout() {
+    private func setupCategoriesCollectionView() {
+        categoriesCollectionView.showsVerticalScrollIndicator = false
+        categoriesCollectionView.showsHorizontalScrollIndicator = false
+        
+        categoriesCollectionView.delegate = self
+        categoriesCollectionView.dataSource = self
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
-        
         layout.itemSize = CGSize(width: 70, height: 80)
         
         categoriesCollectionView.collectionViewLayout = layout
     }
     
-    private func setupMealCollectionViewLayout() {
+    private func setupMealCollectionView() {
+        mealsByCategoryCollectionView.delegate = self
+        mealsByCategoryCollectionView.dataSource = self
+        
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.minimumInteritemSpacing = 10
@@ -108,7 +148,6 @@ class HomepageVC: UIViewController {
         readyToCookLabel.configure(fontSize: 17, fontWeight: .regular, textColor: .secondaryLabel)
         readyToCookLabel.text = "Ready to cook something?"
         profileImageView.layer.cornerRadius = 8
-        profileImageView.image = UIImage(systemName: "person")
         categoryLabel.configure(fontSize: 24, fontWeight: .bold, textColor: .label)
         categoryLabel.text = "Categories"
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShoppinListCell: UITableViewCell {
+class ShoppingListCell: UITableViewCell {
 
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var itemNameLabel: UILabel!

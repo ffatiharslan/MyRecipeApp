@@ -38,7 +38,6 @@ class AuthService {
                 if let error = error {
                     completion(.failure(error))
                 } else {
-                    // Kullanıcının adını ve profil fotoğrafı URL'sini alıyoruz
                     let firstName = user.profile?.givenName
                     let profileImageURL = user.profile?.imageURL(withDimension: 200)?.absoluteString
                     

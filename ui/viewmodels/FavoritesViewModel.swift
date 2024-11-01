@@ -22,4 +22,18 @@ class FavoritesViewModel {
             }
         }
     }
+    
+    
+    func removeFavorite(mealID: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        firestoreService.removeFavorite(mealID: mealID) { result in
+            switch result {
+            case .success:
+                self.fetchFavorites()
+                completion(.success(()))
+            case .failure(let error):
+                print("Favori yemek silme hatası: \(error)")
+                completion(.failure(error))
+            }
+        }
+    }
 }
